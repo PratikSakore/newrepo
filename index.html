@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Samu ❤️</title>
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg,#ffd6e0,#fff1f5);
+  font-family: "Segoe UI", sans-serif;
+  overflow: hidden;
+}
+
+.box {
+  background: white;
+  padding: 30px;
+  border-radius: 25px;
+  text-align: center;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+}
+
+img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #ff7aa2;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+button {
+  padding: 14px 30px;
+  font-size: 18px;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  margin: 10px;
+  transition: all 0.4s ease;
+}
+
+#yes {
+  background: #ff4d6d;
+  color: white;
+}
+
+#sure {
+  background: #ffc2d1;
+}
+
+#no {
+  background: #ccc;
+  position: absolute;
+}
+
+.heart {
+  position: fixed;
+  font-size: 26px;
+  animation: float 2s linear forwards;
+}
+
+@keyframes float {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(-160px); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box" id="box">
+  <img src="samu.jpg">
+  <h1>Hey Samu 💖</h1>
+  <h2>Will you be my Valentine?</h2>
+
+  <button id="yes" onclick="yesClick()">Yes 😍</button>
+  <button id="sure" onclick="sureClick()">Are you sure?</button>
+  <button id="no">No 🙃</button>
+</div>
+
+<script>
+const yesBtn = document.getElementById("yes");
+const sureBtn = document.getElementById("sure");
+const noBtn = document.getElementById("no");
+
+let step = 0;
+let scale = 1;
+
+const sureTexts = [
+  "Really sure?",
+  "Are you positive?",
+  "Pookie please 🥺"
+];
+
+// MOVING NO BUTTON
+function moveNo() {
+  const x = Math.random() * (window.innerWidth - 150);
+  const y = Math.random() * (window.innerHeight - 80);
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
+}
+noBtn.addEventListener("mouseover", moveNo);
+noBtn.addEventListener("touchstart", moveNo);
+
+// ARE YOU SURE BUTTON LOGIC
+function sureClick() {
+  if (step < sureTexts.length) {
+    scale += 0.25;
+    yesBtn.style.transform = `scale(${scale})`;
+    sureBtn.innerText = sureTexts[step];
+    step++;
+  } else {
+    // FULL SCREEN YES
+    yesBtn.style.position = "fixed";
+    yesBtn.style.top = 0;
+    yesBtn.style.left = 0;
+    yesBtn.style.width = "100vw";
+    yesBtn.style.height = "100vh";
+    yesBtn.style.fontSize = "40px";
+    sureBtn.style.display = "none";
+    noBtn.style.display = "none";
+  }
+}
+
+// YES CLICK FINAL
+function yesClick() {
+  document.body.innerHTML = `
+    <div class="box">
+      <img src="final.jpg">
+      <h1>YAYYYY 🥰💖</h1>
+      <h2>I knew it, Samu 😘</h2>
+      <p>You are my favorite person 💕</p>
+      <p>❤️</p>
+    </div>
+  `;
+
+  for (let i = 0; i < 35; i++) {
+    createHeart();
+  }
+}
+
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.style.left = Math.random() * window.innerWidth + "px";
+  heart.style.bottom = "0px";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 2000);
+}
+</script>
+
+</body>
+</html>
